@@ -8,7 +8,7 @@ pub fn solution(output: &mut Vec<usize>) {
     while curr_pos < len {
         let opcode = output[curr_pos];
         match opcode {
-            99 => { println!("Output part 1: {:?}", output[0]); return; },
+            99 => { return; }
             1 | 2  => {
                     if curr_pos + 3 >= len {
                         panic!("Out of range");
@@ -20,16 +20,10 @@ pub fn solution(output: &mut Vec<usize>) {
 
                     match opcode {
                         1 => {
-                                let temp = output[pos1] + output[pos2];
-                                println!("Add output: A[{:?}] = A[{:?}] + A[{:?}] = {:?} + {:?} = {:?}", pos3, pos1, pos2, output[pos1], output[pos2], temp);
-                                output[pos3] = temp;
-                                //output[pos3] = output[pos1] + output[pos2];
+                                output[pos3] = output[pos1] + output[pos2];
                              }
                         2 => {
-                                let temp = output[pos1] * output[pos2];
-                                println!("Multiply output: A[{:?}] = A[{:?}] * A[{:?}] = {:?} * {:?} = {:?}", pos3, pos1, pos2, output[pos1], output[pos2], temp);
-                                output[pos3] = temp;
-                                //output[pos3] = output[pos1] * output[pos2];
+                                output[pos3] = output[pos1] * output[pos2];
                              }
                         _ => panic!("Unknown opcode: {:?}", opcode)
                     }
@@ -51,11 +45,13 @@ fn main() {
     let mut output : Vec<usize> = input.trim().split(',').map(|x| x.parse::<usize>().unwrap()).collect();
     println!("Input : {:?}", output);
 
-    println!("");
+    // revert to the state before the machine caught on fire
+    output[1] = 12;
+    output[2] = 2;
     solution(&mut output);
 
-    println!("");
-    println!("Final output: {:?}", output);
+    println!("Output part 1: {:?}", output[0]);
+    //println!("Final output: {:?}", output);
 
     assert_ne!(234713, output[0]);
 }
