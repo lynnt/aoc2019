@@ -53,8 +53,8 @@ pub fn part2() -> Option<(usize, usize)> {
     let expected_output = 19690720;
 
     for noun in 0..100 {
-        let mut output = input.clone();
         for verb in 0..100 {
+        let mut output = input.clone();
             part1(&mut output, Some(noun), Some(verb));
             if output[0] == expected_output {
                 return Some((noun, verb));
@@ -72,7 +72,7 @@ fn main() {
     println!("Output for part 1: {:?}", output[0]);
 
     let (noun, verb) = part2().unwrap();
-    println!("Output for part 2: ({}, {}) => Final output: {}", noun, verb, 100 * noun * verb);
+    println!("Output for part 2: ({}, {}) => Final output: {}", noun, verb, 100 * noun + verb);
 }
 
 #[cfg(test)]
